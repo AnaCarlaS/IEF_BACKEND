@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post, Put,Query } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post, Put,Query } from '@nestjs/common';
 import { GerenciamentoService } from './monitoramento.service';
 import { CreateGerenciamentoDto } from './dto/create-monitoramento.dto';
 import { UpdateGerenciamentoDto } from './dto/update-monitoramento.dto';

@@ -47,12 +47,7 @@ export class GerenciamentoService{
 
     return result; 
   }
-
-
-   /*async findAll(): Promise<gerenciamento_priorizacao[]> {
-        return this.gerenciamentoRepository.find();
-   }*/
-
+  
    async update(id: number, updateGerenciamentoDto: UpdateGerenciamentoDto,): Promise <gerenciamento_monitoramento>{
 
     const existingRecord = await this.gerenciamentoRepository.findOneBy({ id });
