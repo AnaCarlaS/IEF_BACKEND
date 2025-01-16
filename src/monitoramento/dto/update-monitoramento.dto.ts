@@ -41,10 +41,6 @@ export class UpdateGerenciamentoDto{
 
     @IsDate()
     @IsOptional()
-    criacao: Date;
-
-    @IsDate()
-    @IsOptional()
     atualizacao: Date;
 
 }
