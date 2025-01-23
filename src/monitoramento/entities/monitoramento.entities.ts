@@ -14,7 +14,7 @@ export class gerenciamento_monitoramento{
     @Column() 
     codigo_solicitacao: string;
 
-    @Column()
+    @Column({type: 'float', nullable: true})
     area: number;
 
     @Column()

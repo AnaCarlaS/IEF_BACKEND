@@ -5,25 +5,25 @@ export class gerenciamento_aprovacao {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column({ type: 'float', nullable: true })
   status: number;
 
-  @Column()
+  @Column({ type: 'text', nullable: true })
   tipo: string;
 
-  @Column()
+  @Column({ type: 'text', nullable: true })
   codigo_solicitacao: string;
 
-  @Column({ type: 'double precision' })
+  @Column({ type: 'float', nullable: true})
   area: number;
 
-  @Column({ type: 'double precision' })
+  @Column({ type: 'float', nullable: true })
   modulos_fiscais: number;
 
-  @Column()
+  @Column({ type: 'text', nullable: true })
   municipio: string;
 
-  @Column()
+  @Column({ type: 'text', nullable: true })
   regional: string;
 
   @Column({ type: 'varchar', length: 255, nullable: true })
