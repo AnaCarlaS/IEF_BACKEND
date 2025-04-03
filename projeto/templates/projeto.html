@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projeto</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        @media print {
+            .no-print { display: none; }
+            
+            h1, h2, h3, h4, h5, h6 {
+                page-break-after: avoid;
+            }
+        }
+
+        h4 {
+            text-align: center;
+            background-color: #f0f0f0 ;
+            margin-left: 0px;
+            margin-right: 0px;
+            padding: 5px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            color: #365237;
+        }
+
+        h1, h3 {
+            color: #365237;
+        }
+
+        .toc ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .toc ul li {
+            
+            margin-bottom: 10px;
+        }
+
+        .toc a {
+            text-decoration: none;
+            color: #365237 !important;
+        }
+
+        .toc a:hover {
+            text-decoration: underline ;
+            color: #2e422f !important;
+        }
+
+        .text-primary{
+            color: #365237 !important;
+        }
+
+        .btn-primary {
+            background-color: #BD3D3A !important;
+            border-color: #BD3D3A !important;
+            padding: 10px 80px 10px 80px;
+        }
+
+        .btn-primary:hover {
+            background-color: #a03331 !important;
+            border-color: #a03331 !important;
+            padding: 10px 80px 10px 80px;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="text-center">
+        <img src="{% static 'img/banner.png' %}" alt="Banner" class="img-fluid" style="max-height: 100px; width: 100%; object-fit: cover; box-shadow: 0px 8px 10px rgba(0, 0, 0, 0.3);">
+    </div>
+    <div class="container mt-4">
+        <h1 class="text-center">Projeto de Recomposição da Vegetação</h1>
+        <h3 class="text-center">
+            {% for metodo in metodo_recomendado %}
+                Método: {{ metodo }}
+            {% endfor %}
+        </h1>
+        
+        <!-- Sumário -->
+        <section class="my-4 toc">
+            <h2 class="text-primary">Sumário</h2>
+            <ul>
+                <li><a href="#informacoes-cadastro">1. Informações de Cadastro</a></li>
+                <li><a href="#diagnostico-ambiental">2. Diagnóstico Ambiental</a></li>
+                <li><a href="#tratamento-adicional">3. Tratamento Adicional Inicial</a></li>
+                <li><a href="#detalhamento-metodo">4. Detalhamento do Método</a></li>
+                <li><a href="#especies">5. Espécies Recomendadas</a></li>
+            </ul>
+        </section>
+
+
+        <!-- Seção de Cadastro -->
+        <section class="my-4" id="informacoes-cadastro">
+            <h2 class="text-primary">1. Informações de Cadastro</h2>
+            <div class="row d-flex align-items-stretch">
+                <div class="col-md-7 d-flex flex-column">
+                    <table class="table table-bordered small" style="line-height: 1.2; height: 100%;">
+                        <tr>
+                            <th>Nome do proprietário</th>
+                            <td>José Augusto da Silva</td>
+                        </tr>
+                        <tr>
+                            <th>Código do Imóvel (CAR)</th>
+                            <td>MG-3158805-770CA070FE654C75BA96C3D23E375670</td>
+                        </tr>
+                        <tr>
+                            <th>Código da Solicitação</th>
+                            <td>08b751b8-1d90-4584-8a05-7e01f70462e6</td>
+                        </tr>
+                        <tr>
+                            <th>Código da Gleba</th>
+                            <td>G1</td>
+                        </tr>
+                        <tr>
+                            <th>Localização da Gleba (centro)</th>
+                            <td>{{ cadastro.centro_gleba }}</td>
+                        </tr>
+                        <tr>
+                            <th>Bioma IBGE</th>
+                            <td>{{ cadastro.bioma_ibge }}</td>
+                        </tr>
+                        <tr>
+                            <th>Subdomínio</th>
+                            <td>{{ cadastro.subdominio }}</td>
+                        </tr>
+                        <tr>
+                            <th>Código do Projeto</th>
+                            <td>{{ cadastro.codigo_projeto }}</td>
+                        </tr>
+                        <tr>
+                            <th>Data de Criação do Projeto</th>
+                            <td>{{ cadastro.data }}</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="col-md-5 d-flex flex-column">
+                    <!-- Inserir o HTML do mapa aqui -->
+                    <div style="flex-grow: 1; height: 100%;">
+                        {{ map_html|safe }}  <!-- O 'safe' garante que o HTML é renderizado corretamente -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- Seção de Diagnóstico -->
+        <section class="my-4" id="diagnostico-ambiental" >
+            <h2 class="text-primary">2. Diagnóstico Ambiental</h2>
+            <table class="table table-bordered small" style="line-height: 1.2; width: 100%;">
+                <tr>
+                    <th style="width: 40%;">Tamanho do imóvel</th>
+                    <td style="width: 60%;">{{diagnostico.tamanho_imovel}}</td>
+                </tr>
+                <tr>
+                    <th style="width: 40%;">Tipo de área para recomposição?</th>
+                    <td style="width: 60%;">{{diagnostico.tipo_area}}</td>
+                </tr>
+                <tr>
+                    <th style="width: 40%;">Houve supressão de vegetação nativa após 22/07/2008?</th>
+                    <td style="width: 60%;">{{diagnostico.supressao_apos_2008}}</td>
+                </tr>
+                <tr>
+                    <th style="width: 40%;">Potencial de regeneração natural (percepção do proprietário rural)</th>
+                    <td style="width: 60%;">{{diagnostico.potencial_regeneracao_natural}}</td>
+                </tr>
+                <tr>
+                    <th style="width: 40%;">Estrutura do ecossistema</th>
+                    <td style="width: 60%;">{{diagnostico.estrutura_ecossistema}}</td>
+                </tr>
+                <tr>
+                    <th style="width: 40%;">Dinâmica hídrica</th>
+                    <td style="width: 60%;">{{diagnostico.dinamica_hidrica}}</td>
+                </tr>
+                <tr>
+                    <th style="width: 40%;">Pedregosidade no solo</th>
+                    <td style="width: 60%;">{{diagnostico.pedregosidade_solo}}</td>
+                </tr>
+                <tr>
+                    <th style="width: 40%;">Condições do solo</th>
+                    <td style="width: 60%;">{{diagnostico.condicoes_solo}}</td>
+                </tr>
+                <tr>
+                    <th style="width: 40%;">Declidade do terreno</th>
+                    <td style="width: 60%;">{{diagnostico.declividade}}</td>
+                </tr>
+                <tr>
+                    <th style="width: 40%;">Ocupação da área</th>
+                    <td style="width: 60%;">{{diagnostico.ocupacao_area}}</td>
+                </tr>
+                <tr>
+                    <th style="width: 40%;">Fatores de pertubação</th>
+                    <td style="width: 60%;">
+                        <ul>
+                            {% for fator in diagnostico.fatores_perturbacao %}
+                                <li>{{ fator }}</li>
+                            {% endfor %}
+                        </ul>
+                    </td>
+                </tr>
+            </table>            
+        </section>
+
+
+        <!-- Seção de Tratamentos Específicos -->
+        <section class="my-4" id="tratamento-adicional">
+            <h2 class="text-primary">3. Tratamento Adicional Inicial</h2>
+            <ul>
+                {% for tratamento in tratamento_adicional %}
+                    <li>{{ tratamento }}</li>
+                {% endfor %}
+            </ul>
+        </section>
+
+        <!-- Seção de Detalhamento do Método -->
+        <section class="my-4" id="detalhamento-metodo">
+            <h2 class="text-primary">4. Detalhamento do Método</h2>
+            {% for detalhamento_value in metodo_detalhamento %}
+
+                <div>
+                    <h4><strong>Descrição</strong></h4> <p>{{ detalhamento_value.descricao }}</p>
+                </div>
+                <div>
+                    <h4><strong>Atividades previstas</strong></h4> <p>{{ detalhamento_value.atividades }}</p>
+                </div>
+                <div>
+                    <h4><strong>Cronograma</strong></h4>
+                    {% for etapa_value in detalhamento_value.cronograma %}
+                        <section class="my-4">
+                            <h5 class="text-secondary"><strong>{{ etapa_value.etapa_num }}: {{ etapa_value.etapa }}</strong></h5>
+                            <div class="table-responsive">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 5%;">#</th>
+                                            <th style="width: 7%;">Início</th>
+                                            <th style="width: 7%;">Fim</th>
+                                            <th style="width: 81%;">Sub-etapa</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="small" style="line-height: 1.0;">
+                                        {% for sub_etapa_value in etapa_value.sub_etapa %}
+                                            <tr>
+                                                <td>{{ forloop.counter }}</td>
+                                                <td>{{ sub_etapa_value.inicio }}</td>
+                                                <td>{{ sub_etapa_value.fim }}</td>
+                                                <td>{{ sub_etapa_value.sub_etapa }}</td>
+                                            </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </section>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+        </section>
+
+        <!-- Seção de Espécies -->
+        <section class="my-4" id="especies">
+            <h2 class="text-primary">5. Espécies Recomendadas</h2>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th style="width: 25%;">Nome Científico</th>
+                            <th style="width: 25%;">Nome Popular</th>
+                            <th style="width: 25%;">Hábito</th>
+                            <th style="width: 12%;">Conservação</th>
+                            <th style="width: 13%;">Categoria</th>
+                        </tr>
+                    </thead>
+                    <tbody class="small" style="line-height: 1.0;">
+                        {% for especie in especies %}
+                            <tr>
+                                <td>{{ especie.nome_cientifico }}</td>
+                                <td>{{ especie.nomes_populares }}</td>
+                                <td>{{ especie.habito }}</td>
+                                <td>{{ especie.conservacao }}</td>
+                                <td>{{ especie.categorias_ecofisiologicas }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </section>
+        
+        
+
+        <!-- Botão de Impressão -->
+        <div class="text-center no-print my-4">
+            <button onclick="window.print()" class="btn btn-primary">Imprimir Projeto</button>
+        </div>
+    </div>
+</body>
+</html>
